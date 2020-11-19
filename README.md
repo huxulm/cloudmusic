@@ -1,8 +1,8 @@
-# GoCloudMusicApi
+# Go NeteaseCloudMusic API
 网易云音乐 Go API
 
-[![Godoc Reference](https://img.shields.io/badge/godoc-reference-blue.svg)](https://pkg.go.dev/github.com/jackdon/GoCloudMusicApi)
-[![Go Report](https://goreportcard.com/badge/github.com/jackdon/GoCloudMusicApi)](https://goreportcard.com/report/github.com/jackdon/GoCloudMusicApi)
+[![Godoc Reference](https://img.shields.io/badge/godoc-reference-blue.svg)](https://pkg.go.dev/github.com/jackdon/cloudmusic)
+[![Go Report](https://goreportcard.com/badge/github.com/jackdon/cloudmusic)](https://goreportcard.com/report/github.com/jackdon/cloudmusic)
 
 感谢：[NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)
 
