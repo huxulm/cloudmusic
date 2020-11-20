@@ -1,4 +1,4 @@
-package CloudMusic
+package cloudmusic
 
 import "github.com/jackdon/cloudmusic/util"
 

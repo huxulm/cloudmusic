@@ -1,4 +1,4 @@
-package CloudMusic
+package cloudmusic
 
 import (
 	"testing"
