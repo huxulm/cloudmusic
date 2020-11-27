@@ -26,7 +26,7 @@ func TestRequest(t *testing.T) {
 		"crypto": "weapi",
 		"ua":     "pc",
 		"cookie": map[string]string{"os": "pc"},
-		// "realIP": "119.78.163.224",
+		// "realIP": "<IP>",
 	}
 	if result, err := DoReq("POST", `https://music.163.com/weapi/login/cellphone`, &data, &options); err == nil {
 		fmt.Println("Body:")

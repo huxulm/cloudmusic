@@ -60,7 +60,7 @@ func DefaultRequestOpts() *RequestOptions {
 		"crypto": "weapi",
 		"ua":     "pc",
 		"cookie": map[string]string{"os": "pc"},
-		// "realIP": "47.98.170.133",
+		// "realIP": "<IP>",
 	}
 }
 
