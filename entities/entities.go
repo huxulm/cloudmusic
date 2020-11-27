@@ -209,6 +209,14 @@ func (r *Result) ToRecResourceRes() (*RecResourceRes, error) {
 		return nil, err
 	}
 }
+func (r *Result) ToPersonalFMRes() (*PersonalFMRes, error) {
+	var d PersonalFMRes
+	if err := r.toRes(&d); err == nil {
+		return &d, nil
+	} else {
+		return nil, err
+	}
+}
 
 func (r *Result) toRes(typo interface{}) error {
 	if len(r.Body) > 0 {
@@ -219,6 +227,14 @@ func (r *Result) toRes(typo interface{}) error {
 		}
 	} else {
 		return errors.New("body is empty")
+	}
+}
+
+func (r *Result) Unmarshal(in interface{}) error {
+	if err := r.toRes(in); err == nil {
+		return nil
+	} else {
+		return err
 	}
 }
 
@@ -592,4 +608,36 @@ type RecResourceRes struct {
 	HaveRcmdSongs bool          `json:"haveRcmdSongs"`
 	Recommend     []interface{} `json:"recommend,omitempty"`
 	Code          int           `json:"code,omitempty"`
+}
+
+type MusicMeta struct {
+	Name        string  `json:"name,omitempty"`        // null,
+	Id          int64   `json:"id,omitempty"`          // 4936700402,
+	Size        int64   `json:"size,omitempty"`        // 3996987,
+	Extension   string  `json:"extension,omitempty"`   // "mp3",
+	Sr          int64   `json:"sr,omitempty"`          // 44100,
+	DfsId       int64   `json:"dfsId,omitempty"`       // 0,
+	Bitrate     int64   `json:"bitrate,omitempty"`     // 128000,
+	PlayTime    int64   `json:"playTime,omitempty"`    // 249782,
+	VolumeDelta float64 `json:"volumeDelta,omitempty"` // -43295
+}
+
+// 私人FM
+type FMSong struct {
+	Song
+	Position int64     `json:"position,omitempty"`
+	No       int64     `json:"no,omitempty"`
+	Disc     string    `json:"disc,omitempty"`
+	Starred  bool      `json:"starred,omitempty"`
+	MvID     int64     `json:"mvid,omitempty"`
+	Mp3URL   string    `json:"mp3Url,omitempty"` // null
+	BMusic   MusicMeta `json:"bMusic,omitempty"`
+	HMusic   MusicMeta `json:"hMusic,omitempty"`
+	MMusic   MusicMeta `json:"mMusic,omitempty"`
+	LMusic   MusicMeta `json:"lMusic,omitempty"`
+}
+type PersonalFMRes struct {
+	Code      int      `json:"code,omitempty"`
+	PopAdjust bool     `json:"popAdjust,omitempty"`
+	Data      []FMSong `json:"data,omitempty"`
 }

@@ -59,4 +59,6 @@ var (
 	RECOMMEND_RESOURCE = ConcatBase(BASE_URL_1, "/v1/discovery/recommend/resource")
 	// 每日推荐歌曲
 	RECOMMEND_SONGS = ConcatBase(BASE_URL_4, "/v3/discovery/recommend/songs")
+	// 私人FM
+	PERSONAL_FM = ConcatBase(BASE_URL_3, "/radio/get")
 )

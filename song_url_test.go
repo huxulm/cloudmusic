@@ -8,7 +8,7 @@ import (
 )
 
 func TestSongURL(t *testing.T) {
-	ids := []string{"40021474,159107,34017157"}
+	ids := []string{"40021474,421934070,34017157"}
 	expect := 3
 	cookies := entities.Cookies{}
 	ParseFromFile(&cookies, ".cookies.yaml")
