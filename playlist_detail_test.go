@@ -15,7 +15,8 @@ func TestPlaylistDetai(t *testing.T) {
 	ParseFromFile(&cookies, ".cookies.yaml")
 	assert.Empty(t, cookies)
 	expect := 6
-	if res, err := PlaylistDetail(&cookies, pid, nil); err == nil {
+	query := ent.Query(map[string]interface{}{"pid": pid, "s": nil})
+	if res, err := PlaylistDetail(&cookies, &query); err == nil {
 		fmt.Println(res.BodyAsString())
 		d, err := res.ToPlaylistDetailRes()
 		assert.Error(t, err)

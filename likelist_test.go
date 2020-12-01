@@ -3,7 +3,6 @@ package cloudmusic
 import (
 	"testing"
 
-	"github.com/jackdon/cloudmusic/entities"
 	ent "github.com/jackdon/cloudmusic/entities"
 	"github.com/stretchr/testify/assert"
 )
@@ -12,7 +11,7 @@ func TestLikeList(t *testing.T) {
 	// uid := "<user id>"
 	uid := 45964623
 	expect := 200
-	cookies := entities.Cookies{}
+	cookies := ent.Cookies{}
 	ParseFromFile(&cookies, ".cookies.yaml")
 	query := ent.Query(map[string]interface{}{"uid": uid})
 	if res, err := LikeList(&cookies, &query); err == nil {

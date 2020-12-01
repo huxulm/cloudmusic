@@ -5,6 +5,7 @@ import (
 	"os"
 	"testing"
 
+	ent "github.com/jackdon/cloudmusic/entities"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -18,7 +19,8 @@ func TestLoginCellphone(t *testing.T) {
 		pass = "<your password>"
 	}
 	nickname := os.Getenv("GCM_NICK_NAME")
-	if res, err := LoginCellphone(phone, pass); err == nil {
+	query := ent.Query(map[string]interface{}{"phone": phone, "password": pass})
+	if res, err := LoginCellphone(nil, &query); err == nil {
 		fmt.Println(res.Cookies.String())
 		if lcr, err := res.ToLoginCellRes(); err != nil {
 			assert.Fail(t, "failed:", res.AsJSON(), err.Error())

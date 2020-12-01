@@ -7,14 +7,15 @@ import (
 	"path/filepath"
 	"testing"
 
+	ent "github.com/jackdon/cloudmusic/entities"
 	"github.com/stretchr/testify/assert"
 	"gopkg.in/yaml.v3"
 )
 
 func TestLogin(t *testing.T) {
-	username := os.Getenv("GCM_EMAIL")
-	if username == "" {
-		username = "<your email>"
+	email := os.Getenv("GCM_EMAIL")
+	if email == "" {
+		email = "<your email>"
 	}
 	pass := os.Getenv("GCM_PASS")
 	if pass == "" {
@@ -24,7 +25,8 @@ func TestLogin(t *testing.T) {
 	if nickname == "" {
 		nickname = "<your nickname>"
 	}
-	if res, err := Login(username, pass); err == nil {
+	query := ent.Query(map[string]interface{}{"email": email, "password": pass})
+	if res, err := Login(nil, &query); err == nil {
 		fmt.Println(res.Cookies.String())
 		if lcr, err := res.ToLoginCellRes(); err != nil {
 			assert.Fail(t, "failed:", res.AsJSON(), err.Error(), res.BodyAsString())

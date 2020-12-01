@@ -5,12 +5,13 @@ import (
 	"github.com/jackdon/cloudmusic/util"
 )
 
-func Login(email, password string) (*ent.Result, error) {
-	if res, err := util.DoReq("POST", LOGIN_EMAIL, &map[string]interface{}{
-		"username":      email,
-		"password":      util.Md5String(password),
+func Login(cookies *ent.Cookies, q *ent.Query) (*ent.Result, error) {
+	data := &map[string]interface{}{
+		"username":      q.Get("email").String(),
+		"password":      util.Md5String(q.Get("password").String()),
 		"rememberLogin": "true",
-	}, DefOpts().Raw()); err == nil {
+	}
+	if res, err := util.DoReq("POST", LOGIN_EMAIL, data, DefOpts().Raw()); err == nil {
 		return res, nil
 	} else {
 		return nil, err

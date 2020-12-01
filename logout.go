@@ -1,6 +1,9 @@
 package cloudmusic
 
-import "github.com/jackdon/cloudmusic/util"
+import (
+	ent "github.com/jackdon/cloudmusic/entities"
+	"github.com/jackdon/cloudmusic/util"
+)
 
 type D map[string]interface{}
 
@@ -12,7 +15,7 @@ func DefEmptyOpts() *util.RequestOptions {
 	return util.DefaultEmptyRequestOpts()
 }
 
-func Logout(cookie string) error {
-	util.DoReq("POST", LOGOUT, nil, DefOpts().CookieString(cookie).Raw())
+func Logout(cookie *ent.Cookies, q *ent.Query) error {
+	util.DoReq("POST", LOGOUT, nil, DefOpts().Cookie(*cookie).Raw())
 	return nil
 }
