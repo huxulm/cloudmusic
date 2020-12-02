@@ -46,6 +46,9 @@ func LoadFromYaml(d []byte) ([]*http.Cookie, error) {
 }
 
 func (cs *Cookies) String() string {
+	if cs == nil {
+		return ""
+	}
 	cookie := make([]string, len(*cs))
 	for i, c := range *cs {
 		cookie[i] = c.String()
