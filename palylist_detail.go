@@ -14,7 +14,7 @@ func PlaylistDetail(cookie *ent.Cookies, q *ent.Query) (*ent.Result, error) {
 	if s := q.Get("s"); s == nil {
 		data["s"] = 8
 	} else {
-		data["s"] = *s.Int64()
+		data["s"] = s.Int64()
 	}
 	if res, err := util.DoReq("POST", PLAYLIST_DETAIL, &data, DefOpts().CryptoLinux().Cookie(*cookie).Raw()); err == nil {
 		return res, nil

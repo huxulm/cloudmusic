@@ -5,9 +5,11 @@ import (
 	"github.com/jackdon/cloudmusic/util"
 )
 
-func SongLyric(cookie *ent.Cookies, id string, br int) (*ent.Result, error) {
+// SongLyric
+// @params q includes of id string
+func SongLyric(cookie *ent.Cookies, q *ent.Query) (*ent.Result, error) {
 	data := map[string]interface{}{
-		"id": id,
+		"id": q.Get("id").String(),
 		"lv": -1,
 		"kv": -1,
 		"tv": -1,

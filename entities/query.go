@@ -22,12 +22,19 @@ func (qv *QueryValue) Bool() *bool {
 	v := reflect.Value(*qv).Bool()
 	return &v
 }
-func (qv *QueryValue) Int64() *int64 {
+func (qv *QueryValue) Int64() int64 {
 	if qv == nil {
-		return nil
+		return 0
 	}
 	v := reflect.Value(*qv).Int()
-	return &v
+	return v
+}
+func (qv *QueryValue) IntDefault(deaf int64) int64 {
+	if qv == nil {
+		return deaf
+	}
+	v := reflect.Value(*qv).Int()
+	return v
 }
 func (qv *QueryValue) Value() interface{} {
 	if qv == nil {
@@ -50,7 +57,7 @@ func (qv *QueryValue) StrDefault(defa string) string {
 }
 
 func (q *Query) Get(key string) *QueryValue {
-	if v, has := (*q)[key]; has {
+	if v, has := (*q)[key]; has && v != nil {
 		qv := QueryValue(reflect.ValueOf(v))
 		return &qv
 	}

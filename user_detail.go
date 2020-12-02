@@ -7,8 +7,10 @@ import (
 	"github.com/jackdon/cloudmusic/util"
 )
 
-func UserDetail(uid, cookie string) (*ent.Result, error) {
-	if res, err := util.DoReq("POST", fmt.Sprintf("%s/%s", USER_DETAIL, uid), DefEmptyOpts().Raw(), DefOpts().CookieString(cookie).Raw()); err == nil {
+// UserDetail
+// @params q includes of uid string
+func UserDetail(cookie *ent.Cookies, q *ent.Query) (*ent.Result, error) {
+	if res, err := util.DoReq("POST", fmt.Sprintf("%s/%s", USER_DETAIL, q.Get("uid").String()), DefEmptyOpts().Raw(), DefOpts().Cookie(*cookie).Raw()); err == nil {
 		return res, nil
 	} else {
 		return nil, err

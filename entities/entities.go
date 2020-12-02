@@ -169,6 +169,14 @@ func (r *Result) ToSearchRes() (*SearchRes, error) {
 		return nil, err
 	}
 }
+func (r *Result) ToSearchSingerRes() (*SearchSingerRes, error) {
+	var d SearchSingerRes
+	if err := r.toRes(&d); err == nil {
+		return &d, nil
+	} else {
+		return nil, err
+	}
+}
 func (r *Result) ToHqTagsRes() (*HqTagsRes, error) {
 	var d HqTagsRes
 	if err := r.toRes(&d); err == nil {
@@ -346,50 +354,50 @@ type Subcount struct {
 	SubPlaylistCount     int64 `json:"subPlaylistCount,omitempty"`
 	Code                 int64 `json:"code,omitempty"`
 }
-
+type PlaylistItem struct {
+	Creator               Profile     `json:"creator,omitempty"`
+	Artists               interface{} `json:"artists,omitempty"`
+	Tracks                interface{} `json:"tracks,omitempty"`
+	UpdateFrequency       interface{} `json:"updateFrequency,omitempty"`
+	BackgroundCoverId     int64       `json:"backgroundCoverId,omitempty"`
+	BackgroundCoverUrl    string      `json:"backgroundCoverUrl,omitempty"`
+	TitleImage            int64       `json:"titleImage,omitempty"`
+	TitleImageUrl         string      `json:"titleImageUrl,omitempty"`
+	EnglishTitle          string      `json:"englishTitle,omitempty"`
+	OpRecommend           bool        `json:"opRecommend,omitempty"`
+	RecommendInfo         interface{} `json:"recommendInfo,omitempty"`
+	UserId                int64       `json:"userId,omitempty"`
+	AdType                int         `json:"adType,omitempty"`
+	TrackNumberUpdateTime int64       `json:"trackNumberUpdateTime,omitempty"`
+	CreateTime            int64       `json:"createTime,omitempty"`
+	HighQuality           bool        `json:"highQuality,omitempty"`
+	CoverImgId            int64       `json:"coverImgId,omitempty"`
+	NewImported           bool        `json:"newImported,omitempty"`
+	Anonimous             bool        `json:"anonimous,omitempty"`
+	UpdateTime            int64       `json:"updateTime,omitempty"`
+	CoverImgUrl           string      `json:"coverImgUrl,omitempty"`
+	SpecialType           int         `json:"specialType,omitempty"`
+	TotalDuration         int64       `json:"totalDuration,omitempty"`
+	TrackCount            int64       `json:"trackCount,omitempty"`
+	CommentThreadId       string      `json:"commentThreadId,omitempty"`
+	Privacy               int64       `json:"privacy,omitempty"`
+	TrackUpdateTime       int64       `json:"trackUpdateTime,omitempty"`
+	PlayCount             int64       `json:"playCount,omitempty"`
+	SubscribedCount       int64       `json:"subscribedCount,omitempty"`
+	CloudTrackCount       int64       `json:"cloudTrackCount,omitempty"`
+	Description           string      `json:"description,omitempty"`
+	Ordered               bool        `json:"ordered,omitempty"`
+	Tags                  []string
+	Status                int    `json:"status"`
+	Name                  string `json:"name"`
+	Id                    int64  `json:"id"`
+}
 type PlaylistRes struct {
-	Version    string `json:"version,omitempty"` //"1603414754372",
-	More       bool   `json:"more,omitempty"`    //false,
-	Subscribed bool   `json:"subscribed,omitempty"`
-	Playlist   []struct {
-		Creator               Profile     `json:"creator,omitempty"`
-		Artists               interface{} `json:"artists,omitempty"`
-		Tracks                interface{} `json:"tracks,omitempty"`
-		UpdateFrequency       interface{} `json:"updateFrequency,omitempty"`
-		BackgroundCoverId     int64       `json:"backgroundCoverId,omitempty"`
-		BackgroundCoverUrl    string      `json:"backgroundCoverUrl,omitempty"`
-		TitleImage            int64       `json:"titleImage,omitempty"`
-		TitleImageUrl         string      `json:"titleImageUrl,omitempty"`
-		EnglishTitle          string      `json:"englishTitle,omitempty"`
-		OpRecommend           bool        `json:"opRecommend,omitempty"`
-		RecommendInfo         interface{} `json:"recommendInfo,omitempty"`
-		UserId                int64       `json:"userId,omitempty"`
-		AdType                int         `json:"adType,omitempty"`
-		TrackNumberUpdateTime int64       `json:"trackNumberUpdateTime,omitempty"`
-		CreateTime            int64       `json:"createTime,omitempty"`
-		HighQuality           bool        `json:"highQuality,omitempty"`
-		CoverImgId            int64       `json:"coverImgId,omitempty"`
-		NewImported           bool        `json:"newImported,omitempty"`
-		Anonimous             bool        `json:"anonimous,omitempty"`
-		UpdateTime            int64       `json:"updateTime,omitempty"`
-		CoverImgUrl           string      `json:"coverImgUrl,omitempty"`
-		SpecialType           int         `json:"specialType,omitempty"`
-		TotalDuration         int64       `json:"totalDuration,omitempty"`
-		TrackCount            int64       `json:"trackCount,omitempty"`
-		CommentThreadId       string      `json:"commentThreadId,omitempty"`
-		Privacy               int64       `json:"privacy,omitempty"`
-		TrackUpdateTime       int64       `json:"trackUpdateTime,omitempty"`
-		PlayCount             int64       `json:"playCount,omitempty"`
-		SubscribedCount       int64       `json:"subscribedCount,omitempty"`
-		CloudTrackCount       int64       `json:"cloudTrackCount,omitempty"`
-		Description           string      `json:"description,omitempty"`
-		Ordered               bool        `json:"ordered,omitempty"`
-		Tags                  []string
-		Status                int    `json:"status"`
-		Name                  string `json:"name"`
-		Id                    int64  `json:"id"`
-	} `json:"playlist,omitempty"`
-	Code int `json:"code,omitempty"`
+	Version    string         `json:"version,omitempty"` //"1603414754372",
+	More       bool           `json:"more,omitempty"`    //false,
+	Subscribed bool           `json:"subscribed,omitempty"`
+	Playlist   []PlaylistItem `json:"playlist,omitempty"`
+	Code       int            `json:"code,omitempty"`
 }
 
 type TrackItem struct {
@@ -562,7 +570,15 @@ type Song struct {
 type SearchRes struct {
 	Result struct {
 		Songs []*Song `json:"songs,omitempty"`
-	}
+	} `json:"result,omitempty"`
+	Code int `json:"code,omitempty"`
+}
+type SearchSingerRes struct {
+	Result struct {
+		ArtistCount int64     `json:"artistCount,omitempty"` // 4,
+		HasMore     bool      `json:"hasMore,omitempty"`     // false,
+		Artists     []*Artist `json:"artists,omitempty"`
+	} `json:"result,omitempty"`
 	Code int `json:"code,omitempty"`
 }
 type Tag struct {

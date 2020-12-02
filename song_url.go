@@ -8,14 +8,14 @@ import (
 	"github.com/jackdon/cloudmusic/util"
 )
 
-func SongURL(cookie *ent.Cookies, ids []string, br int) (*ent.Result, error) {
-	data := map[string]interface{}{}
-	data["ids"] = fmt.Sprintf("[%s]", strings.Join(ids, ","))
-	if br > 0 {
-		data["br"] = br
-	} else {
-		data["br"] = 999000
+// SongURL
+// @params q includes of ids []string, br int
+func SongURL(cookie *ent.Cookies, q *ent.Query) (*ent.Result, error) {
+	data := map[string]interface{}{
+		"br": q.Get("br").IntDefault(999000),
 	}
+	ids := q.Get("ids").Value().([]string)
+	data["ids"] = fmt.Sprintf("[%s]", strings.Join(ids, ","))
 	url := "/api/song/enhance/player/url"
 	if res, err :=
 		util.DoReq("POST",

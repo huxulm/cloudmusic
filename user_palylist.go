@@ -5,18 +5,12 @@ import (
 	"github.com/jackdon/cloudmusic/util"
 )
 
-func UserPlaylist(cookie *ent.Cookies, uid string, limit, offset *int) (*ent.Result, error) {
-	data := map[string]interface{}{}
-	data["uid"] = uid
-	if limit == nil {
-		data["limit"] = 30
-	} else {
-		data["limit"] = *limit
-	}
-	if offset == nil {
-		data["offset"] = 0
-	} else {
-		data["offset"] = *offset
+// UserPlaylist q includes of uid string, limit, offset int
+func UserPlaylist(cookie *ent.Cookies, q *ent.Query) (*ent.Result, error) {
+	data := map[string]interface{}{
+		"uid":    q.Get("uid").String(),
+		"limit":  q.Get("limit").IntDefault(30),
+		"offset": q.Get("offset").IntDefault(0),
 	}
 	data["includeVideo"] = true
 	if res, err := util.DoReq("POST", USER_PLAYLIST, &data, DefOpts().Cookie(*cookie).Raw()); err == nil {
