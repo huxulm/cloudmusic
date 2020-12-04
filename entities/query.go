@@ -40,8 +40,7 @@ func (qv *QueryValue) Value() interface{} {
 	if qv == nil {
 		return nil
 	}
-	v := reflect.Value(*qv).Interface()
-	return &v
+	return reflect.Value(*qv).Interface()
 }
 
 func (qv *QueryValue) StrDefault(defa string) string {
