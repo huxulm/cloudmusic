@@ -32,4 +32,5 @@
 |喜欢音乐|LIKE|
 |每日推荐歌单|RECOMMEND_RESOURCE|
 |每日推荐歌曲|RECOMMEND_SONGS|
+|私人FM|PERSONAL_FM|
 
