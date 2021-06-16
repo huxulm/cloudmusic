@@ -37,6 +37,8 @@ var (
 	USER_SUBCOUNT = ConcatBase(BASE_URL_1, "/subcount")
 	// 用户等级信息
 	USER_LEVEL = ConcatBase(BASE_URL_1, "/user/level")
+	// 账号信息
+	ACCOUNT = ConcatBase(BASE_URL_4, "/nuser/account/get")
 	// 用户歌单
 	USER_PLAYLIST = ConcatBase(BASE_URL_4, "/user/playlist")
 	// 歌单详情

@@ -228,6 +228,14 @@ func (r *Result) ToPersonalFMRes() (*PersonalFMRes, error) {
 		return nil, err
 	}
 }
+func (r *Result) ToAccountRes() (*AccountRes, error) {
+	var d AccountRes
+	if err := r.toRes(&d); err == nil {
+		return &d, nil
+	} else {
+		return nil, err
+	}
+}
 
 func (r *Result) toRes(typo interface{}) error {
 	if len(r.Body) > 0 {
@@ -250,20 +258,20 @@ func (r *Result) Unmarshal(in interface{}) error {
 }
 
 type Account struct {
-	ID                 int64  `json:"id,omitempty"`
-	UserName           string `json:"userName,omitempty"`
-	Type               int    `json:"type,omitempty"`
-	Status             int    `json:"status,omitempty"`
-	WhitelistAuthority int    `json:"whitelistAuthority,omitempty"`
-	CreateTime         int64  `json:"createTime,omitempty"`
-	Salt               string `json:"salt,omitempty"`
-	TokenVersion       int    `json:"tokenVersion,omitempty"`
-	Ban                int    `json:"ban,omitempty"`
-	BaoyueVersion      int    `json:"baoyueVersion,omitempty"`
-	DonateVersion      int    `json:"donateVersion,omitempty"`
-	VipType            int    `json:"vipType,omitempty"`
-	ViptypeVersion     int64  `json:"viptypeVersion,omitempty"`
-	AnonimousUser      bool   `json:"anonimousUser,omitempty"`
+	ID                 *int64  `json:"id,omitempty"`
+	UserName           *string `json:"userName,omitempty"`
+	Type               *int    `json:"type,omitempty"`
+	Status             *int    `json:"status,omitempty"`
+	WhitelistAuthority *int    `json:"whitelistAuthority,omitempty"`
+	CreateTime         *int64  `json:"createTime,omitempty"`
+	Salt               *string `json:"salt,omitempty"`
+	TokenVersion       *int    `json:"tokenVersion,omitempty"`
+	Ban                *int    `json:"ban,omitempty"`
+	BaoyueVersion      *int    `json:"baoyueVersion,omitempty"`
+	DonateVersion      *int    `json:"donateVersion,omitempty"`
+	VipType            *int    `json:"vipType,omitempty"`
+	ViptypeVersion     *int64  `json:"viptypeVersion,omitempty"`
+	AnonimousUser      *bool   `json:"anonimousUser,omitempty"`
 }
 type Profile struct {
 	Mutual                    bool        `json:"mutual,omitempty" yaml:"mutual"`                                       // false,
@@ -345,18 +353,25 @@ type UserDetailRes struct {
 	CreateDays               int64     `json:"createDays,omitempty"`
 }
 
+type AccountRes struct {
+	Code    int      `json:"code,omitempty"`
+	Account *Account `json:"account,omitempty"`
+	Profile *Profile `json:"profile,omitempty"`
+}
+
 // 歌单，收藏，mv，dj数量
 type Subcount struct {
-	ProgramCount         int64 `json:"programCount,omitempty"`
-	DjRadioCount         int64 `json:"djRadioCount,omitempty"`
-	MvCount              int64 `json:"mvCount,omitempty"`
-	ArtistCount          int64 `json:"artistCount,omitempty"`
-	NewProgramCount      int64 `json:"newProgramCount,omitempty"`
-	CreateDjRadioCount   int64 `json:"createDjRadioCount,omitempty"`
-	CreatedPlaylistCount int64 `json:"createdPlaylistCount,omitempty"`
-	SubPlaylistCount     int64 `json:"subPlaylistCount,omitempty"`
-	Code                 int64 `json:"code,omitempty"`
+	ProgramCount         int64 `json:"programCount"`
+	DjRadioCount         int64 `json:"djRadioCount"`
+	MvCount              int64 `json:"mvCount"`
+	ArtistCount          int64 `json:"artistCount"`
+	NewProgramCount      int64 `json:"newProgramCount"`
+	CreateDjRadioCount   int64 `json:"createDjRadioCount"`
+	CreatedPlaylistCount int64 `json:"createdPlaylistCount"`
+	SubPlaylistCount     int64 `json:"subPlaylistCount"`
+	Code                 int64 `json:"code"`
 }
+
 type PlaylistItem struct {
 	Creator               Profile     `json:"creator,omitempty"`
 	Artists               interface{} `json:"artists,omitempty"`
@@ -396,11 +411,11 @@ type PlaylistItem struct {
 	Id                    int64  `json:"id"`
 }
 type PlaylistRes struct {
-	Version    string         `json:"version,omitempty"` //"1603414754372",
-	More       bool           `json:"more,omitempty"`    //false,
-	Subscribed bool           `json:"subscribed,omitempty"`
+	Version    *string        `json:"version,omitempty"` //"1603414754372",
+	More       *bool          `json:"more,omitempty"`    //false,
+	Subscribed *bool          `json:"subscribed,omitempty"`
 	Playlist   []PlaylistItem `json:"playlist,omitempty"`
-	Code       int            `json:"code,omitempty"`
+	Code       *int           `json:"code,omitempty"`
 }
 
 type TrackItem struct {
